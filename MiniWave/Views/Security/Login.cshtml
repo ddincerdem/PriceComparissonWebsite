@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+@using MiniWave.Model
+@model USERS
+
+<link href="~/Content/LoginPage/tehdit.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="~/Content/assets/images/required/logoo.png" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        @using (Html.BeginForm("Login", "Security", FormMethod.Post))
+        {
+            @Html.TextBoxFor(x => x.UserNick , new { @class = "fadeIn second", name = "login", placeholder = "Kullanıcı Adınız" })
+            @Html.TextBoxFor(x => x.UserPassword , new { @class = "fadeIn third", name = "login", placeholder = "Şifre" })
+            <button type="submit" class="bootstrap-touchspin">Giriş Yap</button>
+        }
+        @ViewBag.Message
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <a class="underlineHover" href="~/Security/Register">Hesabınız Yok mu? Kayıt Ol!</a>
+        </div>
+
+    </div>
+</div>

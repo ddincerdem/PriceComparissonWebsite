@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+}
+@using MiniWave.Model
+@model USERS
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sing Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Custom Theme files -->
+    <link href="~/Content/RegisterPage/tehditt.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+    <!-- //web font -->
+</head>
+<body>
+    <!-- main -->
+    <div class="main-w3layouts wrapper">
+        <h1><img src="~/Content/assets/images/required/logoo.png" id="icon" alt="User Icon" /></h1>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+                <form action="/Security/Register" method="post">
+                    <input class="text" type="text" name="UserName" placeholder="Adınız Soyadınız" required="">
+                    <input class="text email" type="text" name="UserNick" placeholder="Kullanıcı Adınız" required="">
+                    <input class="text" type="password" name="UserPassword" placeholder="Şifreniz" required="">
+                    <br />
+                    <div class="wthree-text">
+                        <label class="anim">
+                            <input type="checkbox" class="checkbox" required="">
+                            <span>Kullanıcı Sözleşmesini Kabul ediyorum.</span>
+                        </label>
+                        <div class="clear"> </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <h4>@ViewBag.error</h4>
+                    <input type="submit" value="GİRİŞ YAP">
+                </form>
+                <p>Zaten Bir Hesabınız var mı? <a href="~/Security/Login"> Şimdi Giriş Yap!</a></p>
+            </div>
+        </div>
+        <ul class="colorlib-bubbles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <!-- //main -->
+</body>
+</html>

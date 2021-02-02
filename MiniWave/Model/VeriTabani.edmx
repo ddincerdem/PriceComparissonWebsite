@@ -1,0 +1,755 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VeriTabaniModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ALT_KATEGORİ">
+          <Key>
+            <PropertyRef Name="AltKategoriID" />
+          </Key>
+          <Property Name="AltKategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AltKategoriAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="AnaKategoriID" Type="int" />
+        </EntityType>
+        <EntityType Name="FAVORİLER">
+          <Key>
+            <PropertyRef Name="FavoriID" />
+          </Key>
+          <Property Name="FavoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FavoriUrunID" Type="int" />
+          <Property Name="FavoriUrunSahibiID" Type="int" />
+        </EntityType>
+        <EntityType Name="KATEGORİ">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdı" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MAGAZA">
+          <Key>
+            <PropertyRef Name="MagazaID" />
+          </Key>
+          <Property Name="MagazaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MagazaAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="MagazaResimPath" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="URUN">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunResimPath" Type="nvarchar(max)" />
+          <Property Name="UrunAciklama" Type="nvarchar(max)" />
+          <Property Name="UrunMagazaID" Type="int" Nullable="false" />
+          <Property Name="UrunKategoriID" Type="int" />
+          <Property Name="UrunFiyat" Type="int" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserNick" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserRole" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'VeriTabani.dbo.TumUrunler' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TumUrunler">
+          <Property Name="UrunAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunAciklama" Type="nvarchar(max)" />
+          <Property Name="UrunFiyat" Type="int" />
+          <Property Name="MagazaAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Kategori" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunResimPath" Type="nvarchar(max)" />
+        </EntityType>-->
+        <Association Name="FK__ALT_KATEG__AnaKa__2B3F6F97">
+          <End Role="KATEGORİ" Type="Self.KATEGORİ" Multiplicity="0..1" />
+          <End Role="ALT_KATEGORİ" Type="Self.ALT_KATEGORİ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KATEGORİ">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="ALT_KATEGORİ">
+              <PropertyRef Name="AnaKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FAVORİLER__Favor__33D4B598">
+          <End Role="URUN" Type="Self.URUN" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FAVORİLER" Type="Self.FAVORİLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="URUN">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="FAVORİLER">
+              <PropertyRef Name="FavoriUrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FAVORİLER__Favor__34C8D9D1">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FAVORİLER" Type="Self.FAVORİLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FAVORİLER">
+              <PropertyRef Name="FavoriUrunSahibiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__URUN__UrunKatego__2E1BDC42">
+          <End Role="ALT_KATEGORİ" Type="Self.ALT_KATEGORİ" Multiplicity="0..1" />
+          <End Role="URUN" Type="Self.URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALT_KATEGORİ">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="URUN">
+              <PropertyRef Name="UrunKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__URUN__UrunMagaza__30F848ED">
+          <End Role="MAGAZA" Type="Self.MAGAZA" Multiplicity="1" />
+          <End Role="URUN" Type="Self.URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAGAZA">
+              <PropertyRef Name="MagazaID" />
+            </Principal>
+            <Dependent Role="URUN">
+              <PropertyRef Name="UrunMagazaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USERS__UserRole__267ABA7A">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="EnPopulerUrunuBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="FavoriGoruntule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategorideEnPopulerUrunuBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategoridekiUrunler" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategoridekiUrunlerdeEnYeniUrunler" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategoridekiUrunleriEnDusukFiyataGoreSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategoridekiUrunleriEnYuksekFiyataGoreSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+        </Function>
+        <Function Name="KategorideUrunSayisi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Kategori" Type="int" Mode="In" />
+          <Parameter Name="Sayi" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="TumUrunlerdeEnYeniUrunler" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TumUrunleriEnDusukFiyataGoreSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TumUrunleriEnYuksekFiyataGoreSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TumUrunlerinSayisi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Sayi" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="UrunArama" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UrunAdi" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UrunEkle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UrunAdi" Type="nvarchar" Mode="In" />
+          <Parameter Name="UrunResimPath" Type="nvarchar" Mode="In" />
+          <Parameter Name="UrunAciklama" Type="nvarchar" Mode="In" />
+          <Parameter Name="UrunMagaza" Type="int" Mode="In" />
+          <Parameter Name="UrunKategori" Type="int" Mode="In" />
+          <Parameter Name="UrunFiyat" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UrunSil" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UrunID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="VeriTabaniModelStoreContainer">
+          <EntitySet Name="ALT_KATEGORİ" EntityType="Self.ALT_KATEGORİ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAVORİLER" EntityType="Self.FAVORİLER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KATEGORİ" EntityType="Self.KATEGORİ" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAGAZA" EntityType="Self.MAGAZA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="URUN" EntityType="Self.URUN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ALT_KATEG__AnaKa__2B3F6F97" Association="Self.FK__ALT_KATEG__AnaKa__2B3F6F97">
+            <End Role="KATEGORİ" EntitySet="KATEGORİ" />
+            <End Role="ALT_KATEGORİ" EntitySet="ALT_KATEGORİ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FAVORİLER__Favor__33D4B598" Association="Self.FK__FAVORİLER__Favor__33D4B598">
+            <End Role="URUN" EntitySet="URUN" />
+            <End Role="FAVORİLER" EntitySet="FAVORİLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FAVORİLER__Favor__34C8D9D1" Association="Self.FK__FAVORİLER__Favor__34C8D9D1">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="FAVORİLER" EntitySet="FAVORİLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__URUN__UrunKatego__2E1BDC42" Association="Self.FK__URUN__UrunKatego__2E1BDC42">
+            <End Role="ALT_KATEGORİ" EntitySet="ALT_KATEGORİ" />
+            <End Role="URUN" EntitySet="URUN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__URUN__UrunMagaza__30F848ED" Association="Self.FK__URUN__UrunMagaza__30F848ED">
+            <End Role="MAGAZA" EntitySet="MAGAZA" />
+            <End Role="URUN" EntitySet="URUN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USERS__UserRole__267ABA7A" Association="Self.FK__USERS__UserRole__267ABA7A">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VeriTabaniModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ALT_KATEGORİ">
+          <Key>
+            <PropertyRef Name="AltKategoriID" />
+          </Key>
+          <Property Name="AltKategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AltKategoriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AnaKategoriID" Type="Int32" />
+          <NavigationProperty Name="KATEGORİ" Relationship="Self.FK__ALT_KATEG__AnaKa__2B3F6F97" FromRole="ALT_KATEGORİ" ToRole="KATEGORİ" />
+          <NavigationProperty Name="URUN" Relationship="Self.FK__URUN__UrunKatego__2E1BDC42" FromRole="ALT_KATEGORİ" ToRole="URUN" />
+        </EntityType>
+        <EntityType Name="FAVORİLER">
+          <Key>
+            <PropertyRef Name="FavoriID" />
+          </Key>
+          <Property Name="FavoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FavoriUrunID" Type="Int32" />
+          <Property Name="FavoriUrunSahibiID" Type="Int32" />
+          <NavigationProperty Name="URUN" Relationship="Self.FK__FAVORİLER__Favor__33D4B598" FromRole="FAVORİLER" ToRole="URUN" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__FAVORİLER__Favor__34C8D9D1" FromRole="FAVORİLER" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="KATEGORİ">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdı" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ALT_KATEGORİ" Relationship="Self.FK__ALT_KATEG__AnaKa__2B3F6F97" FromRole="KATEGORİ" ToRole="ALT_KATEGORİ" />
+        </EntityType>
+        <EntityType Name="MAGAZA">
+          <Key>
+            <PropertyRef Name="MagazaID" />
+          </Key>
+          <Property Name="MagazaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MagazaAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MagazaResimPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="URUN" Relationship="Self.FK__URUN__UrunMagaza__30F848ED" FromRole="MAGAZA" ToRole="URUN" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="USERS" Relationship="Self.FK__USERS__UserRole__267ABA7A" FromRole="ROLES" ToRole="USERS" />
+        </EntityType>
+        <EntityType Name="URUN">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UrunResimPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UrunMagazaID" Type="Int32" Nullable="false" />
+          <Property Name="UrunKategoriID" Type="Int32" />
+          <Property Name="UrunFiyat" Type="Int32" />
+          <NavigationProperty Name="ALT_KATEGORİ" Relationship="Self.FK__URUN__UrunKatego__2E1BDC42" FromRole="URUN" ToRole="ALT_KATEGORİ" />
+          <NavigationProperty Name="FAVORİLER" Relationship="Self.FK__FAVORİLER__Favor__33D4B598" FromRole="URUN" ToRole="FAVORİLER" />
+          <NavigationProperty Name="MAGAZA" Relationship="Self.FK__URUN__UrunMagaza__30F848ED" FromRole="URUN" ToRole="MAGAZA" />
+        </EntityType>
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserNick" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FAVORİLER" Relationship="Self.FK__FAVORİLER__Favor__34C8D9D1" FromRole="USERS" ToRole="FAVORİLER" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK__USERS__UserRole__267ABA7A" FromRole="USERS" ToRole="ROLES" />
+        </EntityType>
+        <Association Name="FK__ALT_KATEG__AnaKa__2B3F6F97">
+          <End Role="KATEGORİ" Type="Self.KATEGORİ" Multiplicity="0..1" />
+          <End Role="ALT_KATEGORİ" Type="Self.ALT_KATEGORİ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KATEGORİ">
+              <PropertyRef Name="KategoriID" />
+            </Principal>
+            <Dependent Role="ALT_KATEGORİ">
+              <PropertyRef Name="AnaKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__URUN__UrunKatego__2E1BDC42">
+          <End Role="ALT_KATEGORİ" Type="Self.ALT_KATEGORİ" Multiplicity="0..1" />
+          <End Role="URUN" Type="Self.URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALT_KATEGORİ">
+              <PropertyRef Name="AltKategoriID" />
+            </Principal>
+            <Dependent Role="URUN">
+              <PropertyRef Name="UrunKategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FAVORİLER__Favor__33D4B598">
+          <End Role="URUN" Type="Self.URUN" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FAVORİLER" Type="Self.FAVORİLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="URUN">
+              <PropertyRef Name="UrunID" />
+            </Principal>
+            <Dependent Role="FAVORİLER">
+              <PropertyRef Name="FavoriUrunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FAVORİLER__Favor__34C8D9D1">
+          <End Role="USERS" Type="Self.USERS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FAVORİLER" Type="Self.FAVORİLER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERS">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="FAVORİLER">
+              <PropertyRef Name="FavoriUrunSahibiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__URUN__UrunMagaza__30F848ED">
+          <End Role="MAGAZA" Type="Self.MAGAZA" Multiplicity="1" />
+          <End Role="URUN" Type="Self.URUN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MAGAZA">
+              <PropertyRef Name="MagazaID" />
+            </Principal>
+            <Dependent Role="URUN">
+              <PropertyRef Name="UrunMagazaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USERS__UserRole__267ABA7A">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USERS" Type="Self.USERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="USERS">
+              <PropertyRef Name="UserRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Miniwave" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALT_KATEGORİ" EntityType="Self.ALT_KATEGORİ" />
+          <EntitySet Name="FAVORİLER" EntityType="Self.FAVORİLER" />
+          <EntitySet Name="KATEGORİ" EntityType="Self.KATEGORİ" />
+          <EntitySet Name="MAGAZA" EntityType="Self.MAGAZA" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+          <EntitySet Name="URUN" EntityType="Self.URUN" />
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+          <AssociationSet Name="FK__ALT_KATEG__AnaKa__2B3F6F97" Association="Self.FK__ALT_KATEG__AnaKa__2B3F6F97">
+            <End Role="KATEGORİ" EntitySet="KATEGORİ" />
+            <End Role="ALT_KATEGORİ" EntitySet="ALT_KATEGORİ" />
+          </AssociationSet>
+          <AssociationSet Name="FK__URUN__UrunKatego__2E1BDC42" Association="Self.FK__URUN__UrunKatego__2E1BDC42">
+            <End Role="ALT_KATEGORİ" EntitySet="ALT_KATEGORİ" />
+            <End Role="URUN" EntitySet="URUN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FAVORİLER__Favor__33D4B598" Association="Self.FK__FAVORİLER__Favor__33D4B598">
+            <End Role="URUN" EntitySet="URUN" />
+            <End Role="FAVORİLER" EntitySet="FAVORİLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FAVORİLER__Favor__34C8D9D1" Association="Self.FK__FAVORİLER__Favor__34C8D9D1">
+            <End Role="USERS" EntitySet="USERS" />
+            <End Role="FAVORİLER" EntitySet="FAVORİLER" />
+          </AssociationSet>
+          <AssociationSet Name="FK__URUN__UrunMagaza__30F848ED" Association="Self.FK__URUN__UrunMagaza__30F848ED">
+            <End Role="MAGAZA" EntitySet="MAGAZA" />
+            <End Role="URUN" EntitySet="URUN" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USERS__UserRole__267ABA7A" Association="Self.FK__USERS__UserRole__267ABA7A">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USERS" EntitySet="USERS" />
+          </AssociationSet>
+          <FunctionImport Name="EnPopulerUrunuBul" ReturnType="Collection(VeriTabaniModel.EnPopulerUrunuBul_Result)" />
+          <FunctionImport Name="FavoriGoruntule" ReturnType="Collection(VeriTabaniModel.FavoriGoruntule_Result)">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategorideEnPopulerUrunuBul" ReturnType="Collection(VeriTabaniModel.KategorideEnPopulerUrunuBul_Result)">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategoridekiUrunler" ReturnType="Collection(VeriTabaniModel.KategoridekiUrunler_Result)">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategoridekiUrunlerdeEnYeniUrunler" ReturnType="Collection(VeriTabaniModel.KategoridekiUrunlerdeEnYeniUrunler_Result)">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategoridekiUrunleriEnDusukFiyataGoreSirala" ReturnType="Collection(VeriTabaniModel.KategoridekiUrunleriEnDusukFiyataGoreSirala_Result)">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategoridekiUrunleriEnYuksekFiyataGoreSirala" ReturnType="Collection(VeriTabaniModel.KategoridekiUrunleriEnYuksekFiyataGoreSirala_Result)">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="KategorideUrunSayisi">
+            <Parameter Name="Kategori" Mode="In" Type="Int32" />
+            <Parameter Name="Sayi" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="TumUrunlerdeEnYeniUrunler" ReturnType="Collection(VeriTabaniModel.TumUrunlerdeEnYeniUrunler_Result)" />
+          <FunctionImport Name="TumUrunleriEnDusukFiyataGoreSirala" ReturnType="Collection(VeriTabaniModel.TumUrunleriEnDusukFiyataGoreSirala_Result)" />
+          <FunctionImport Name="TumUrunleriEnYuksekFiyataGoreSirala" ReturnType="Collection(VeriTabaniModel.TumUrunleriEnYuksekFiyataGoreSirala_Result)" />
+          <FunctionImport Name="TumUrunlerinSayisi">
+            <Parameter Name="Sayi" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UrunArama" ReturnType="Collection(VeriTabaniModel.UrunArama_Result)">
+            <Parameter Name="UrunAdi" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UrunEkle">
+            <Parameter Name="UrunAdi" Mode="In" Type="String" />
+            <Parameter Name="UrunResimPath" Mode="In" Type="String" />
+            <Parameter Name="UrunAciklama" Mode="In" Type="String" />
+            <Parameter Name="UrunMagaza" Mode="In" Type="Int32" />
+            <Parameter Name="UrunKategori" Mode="In" Type="Int32" />
+            <Parameter Name="UrunFiyat" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UrunSil">
+            <Parameter Name="UrunID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="EnPopulerUrunuBul_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ToplamFav" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FavoriGoruntule_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KategorideEnPopulerUrunuBul_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ToplamFav" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KategoridekiUrunler_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KategoridekiUrunlerdeEnYeniUrunler_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KategoridekiUrunleriEnDusukFiyataGoreSirala_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="KategoridekiUrunleriEnYuksekFiyataGoreSirala_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TumUrunlerdeEnYeniUrunler_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TumUrunleriEnDusukFiyataGoreSirala_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AltKategoriAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TumUrunleriEnYuksekFiyataGoreSirala_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AltKategoriAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UrunArama_Result">
+          <Property Type="String" Name="UrunAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunAciklama" Nullable="true" />
+          <Property Type="Int32" Name="UrunFiyat" Nullable="true" />
+          <Property Type="String" Name="MagazaAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Kategori" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UrunResimPath" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VeriTabaniModelStoreContainer" CdmEntityContainer="Miniwave">
+          <EntitySetMapping Name="ALT_KATEGORİ">
+            <EntityTypeMapping TypeName="VeriTabaniModel.ALT_KATEGORİ">
+              <MappingFragment StoreEntitySet="ALT_KATEGORİ">
+                <ScalarProperty Name="AltKategoriID" ColumnName="AltKategoriID" />
+                <ScalarProperty Name="AltKategoriAdi" ColumnName="AltKategoriAdi" />
+                <ScalarProperty Name="AnaKategoriID" ColumnName="AnaKategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAVORİLER">
+            <EntityTypeMapping TypeName="VeriTabaniModel.FAVORİLER">
+              <MappingFragment StoreEntitySet="FAVORİLER">
+                <ScalarProperty Name="FavoriID" ColumnName="FavoriID" />
+                <ScalarProperty Name="FavoriUrunID" ColumnName="FavoriUrunID" />
+                <ScalarProperty Name="FavoriUrunSahibiID" ColumnName="FavoriUrunSahibiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KATEGORİ">
+            <EntityTypeMapping TypeName="VeriTabaniModel.KATEGORİ">
+              <MappingFragment StoreEntitySet="KATEGORİ">
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="KategoriAdı" ColumnName="KategoriAdı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAGAZA">
+            <EntityTypeMapping TypeName="VeriTabaniModel.MAGAZA">
+              <MappingFragment StoreEntitySet="MAGAZA">
+                <ScalarProperty Name="MagazaID" ColumnName="MagazaID" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="MagazaResimPath" ColumnName="MagazaResimPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="VeriTabaniModel.ROLES">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="RolName" ColumnName="RolName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="URUN">
+            <EntityTypeMapping TypeName="VeriTabaniModel.URUN">
+              <MappingFragment StoreEntitySet="URUN">
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunMagazaID" ColumnName="UrunMagazaID" />
+                <ScalarProperty Name="UrunKategoriID" ColumnName="UrunKategoriID" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="VeriTabaniModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserNick" ColumnName="UserNick" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="EnPopulerUrunuBul" FunctionName="VeriTabaniModel.Store.EnPopulerUrunuBul">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.EnPopulerUrunuBul_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="ToplamFav" ColumnName="ToplamFav" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FavoriGoruntule" FunctionName="VeriTabaniModel.Store.FavoriGoruntule">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.FavoriGoruntule_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategorideEnPopulerUrunuBul" FunctionName="VeriTabaniModel.Store.KategorideEnPopulerUrunuBul">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.KategorideEnPopulerUrunuBul_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="ToplamFav" ColumnName="ToplamFav" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategoridekiUrunler" FunctionName="VeriTabaniModel.Store.KategoridekiUrunler">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.KategoridekiUrunler_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategoridekiUrunlerdeEnYeniUrunler" FunctionName="VeriTabaniModel.Store.KategoridekiUrunlerdeEnYeniUrunler">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.KategoridekiUrunlerdeEnYeniUrunler_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategoridekiUrunleriEnDusukFiyataGoreSirala" FunctionName="VeriTabaniModel.Store.KategoridekiUrunleriEnDusukFiyataGoreSirala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.KategoridekiUrunleriEnDusukFiyataGoreSirala_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategoridekiUrunleriEnYuksekFiyataGoreSirala" FunctionName="VeriTabaniModel.Store.KategoridekiUrunleriEnYuksekFiyataGoreSirala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.KategoridekiUrunleriEnYuksekFiyataGoreSirala_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="KategorideUrunSayisi" FunctionName="VeriTabaniModel.Store.KategorideUrunSayisi" />
+          <FunctionImportMapping FunctionImportName="TumUrunlerdeEnYeniUrunler" FunctionName="VeriTabaniModel.Store.TumUrunlerdeEnYeniUrunler">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.TumUrunlerdeEnYeniUrunler_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TumUrunleriEnDusukFiyataGoreSirala" FunctionName="VeriTabaniModel.Store.TumUrunleriEnDusukFiyataGoreSirala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.TumUrunleriEnDusukFiyataGoreSirala_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="AltKategoriAdi" ColumnName="AltKategoriAdi" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TumUrunleriEnYuksekFiyataGoreSirala" FunctionName="VeriTabaniModel.Store.TumUrunleriEnYuksekFiyataGoreSirala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.TumUrunleriEnYuksekFiyataGoreSirala_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="AltKategoriAdi" ColumnName="AltKategoriAdi" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TumUrunlerinSayisi" FunctionName="VeriTabaniModel.Store.TumUrunlerinSayisi" />
+          <FunctionImportMapping FunctionImportName="UrunArama" FunctionName="VeriTabaniModel.Store.UrunArama">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VeriTabaniModel.UrunArama_Result">
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunAciklama" ColumnName="UrunAciklama" />
+                <ScalarProperty Name="UrunFiyat" ColumnName="UrunFiyat" />
+                <ScalarProperty Name="MagazaAdi" ColumnName="MagazaAdi" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="UrunResimPath" ColumnName="UrunResimPath" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UrunEkle" FunctionName="VeriTabaniModel.Store.UrunEkle" />
+          <FunctionImportMapping FunctionImportName="UrunSil" FunctionName="VeriTabaniModel.Store.UrunSil" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

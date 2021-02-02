@@ -1,0 +1,43 @@
+﻿@using MiniWave.Model
+@{
+    ViewBag.Title = "Ürün Ekle";
+}
+@model URUN
+<div class="col-md-6">
+    <div class="block">
+        <div class="block-heading">
+        </div>
+        <div class="block-content-outer" style="display: block;">
+            <div class="block-content-inner ">
+                <form action="/Urun/UrunEkle" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Adı</label>
+                        <input type="text" class="form-control" id="input-demo-c" placeholder="Örn:Iphone 11" name="UrunAdi">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Açıklaması</label>
+                        <input type="text" class="form-control" id="input-demo-c" placeholder="Örn:128 mpx 500gb" name="UrunAciklama">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Fiyat</label>
+                        <input type="number" class="form-control" id="input-demo-c" placeholder="Örn:3000" name="UrunFiyat">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Kategorisi</label>
+                        @Html.DropDownListFor(m => m.ALT_KATEGORİ.AltKategoriID, (List<SelectListItem>)ViewBag.kategoriler)
+                    </div>
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Mağazası</label>
+                        @Html.DropDownListFor(m => m.MAGAZA.MagazaID, (List<SelectListItem>)ViewBag.magaza)
+                    </div>
+                    <div class="form-group">
+                        <label for="input-demo-c">Ürün Fotoğrafı</label>
+                       <input type="file" name="UrunResimPath" accept="image/x-png,image/gif,image/jpeg" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

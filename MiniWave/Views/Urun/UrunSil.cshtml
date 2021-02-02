@@ -1,0 +1,21 @@
+﻿@using MiniWave.Model;
+@{
+    ViewBag.Title = "Ürün Silme";
+}
+@model  URUN
+
+<div class="col-md-12">
+    <div class="block">
+        <div class="block-heading">
+        </div>
+        <div class="block-content-outer" style="display: block;">
+            <div class="block-content-inner">
+                <form action="/Urun/UrunSil" method="post">
+                    <input type="hidden" name="UrunID" value="@Model.UrunID" />
+                    <label>Bu Bu Ürünü silmek istediğinizden Emin misiniz?</label>
+                    <input type="submit" class="-btn btn-danger" value="Evet" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

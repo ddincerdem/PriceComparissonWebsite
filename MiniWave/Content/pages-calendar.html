@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+</style>
+</head>
+<body>
+	<div class="anonymous">
+		<center><h1>Welcome Anonymous User!</h1></center>
+	</div>
+
+	<div class="end_user">
+		<center><h1>Welcome End-User!</h1></center>
+	</div>
+
+	<div class="agent">
+		<center><h1>Welcome Agent!</h1></center>
+	</div>
+
+	<div class="manager">
+		<center><h1>Welcome Manager!</h1></center>
+	</div>
+
+	<script>
+
+		function fun() {
+			if (HelpCenter.user.role == "anonymous") {
+				$("div.anonymous").show();
+			}
+		}
+	</script>
+</body>
+
+</html>

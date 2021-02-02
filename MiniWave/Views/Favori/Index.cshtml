@@ -1,0 +1,46 @@
+﻿@using MiniWave.Model
+@{
+    ViewBag.Title = "Favoriler";
+}
+@model IEnumerable<MiniWave.Model.FavoriGoruntule_Result>
+<div class="col-md-12">
+    <div class="block">
+        <div class="block-heading">
+            <h2>
+                FAVORİLER
+            </h2>
+
+        </div>
+        <div class="block-content-outer" style="display: block;">
+
+            <div class="block-content-inner">
+                <table class="table table-striped table-hover table-condensed">
+
+                    <thead>
+                        <tr>
+                            <th>Ürün Fotoğrafı</th>
+                            <th>Ürün Adı</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var urun in Model)
+                        {
+
+                            <tr>
+                                <td>
+
+                                    <img src="@urun.UrunResimPath" alt="" border="3" height=100 width=110><img />
+
+                                </td>
+                                <td>@urun.UrunAdi </td>
+
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+<</div>
